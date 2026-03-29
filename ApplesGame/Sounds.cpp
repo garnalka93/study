@@ -1,7 +1,5 @@
 #include "Sounds.h"
 
-using namespace GameConstants;
-
 int loadAllSounds(GameState& gameData) {
 	if (!gameData.bufferForAppleSound.loadFromFile("Resources\\AppleEat.wav")) {
 		return -1;
@@ -16,6 +14,8 @@ int loadAllSounds(GameState& gameData) {
 }
 
 void playAppleEatSound(GameState& gameData) {
+	gameData.appleEatSound.setVolume(100.f);
+	gameData.appleEatSound.play();
 	gameData.appleEatSound.setVolume(100.f);
 	gameData.appleEatSound.play();
 }

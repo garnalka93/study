@@ -5,8 +5,9 @@
 #include "Apple.h"
 #include "Support.h"
 #include <windows.h>
-
-using namespace GameConstants;
+#include "Sounds.h"
+#include "Texts.h"
+#include "Conditions.h"
 
 typedef worldPosition2d Vector2D;
 using worldPosition2D = worldPosition2d;
@@ -18,3 +19,5 @@ void playerMovement(GameState& gameData);
 void checkhWallCollision(GameState& gameData, sf::Vector2f playerPosition, sf::RenderWindow& window);
 
 void checkCollistions(GameState& gameData, sf::RenderWindow& window);
+
+void setPlayerScore(int applesConsumed, std::string playerName, std::vector<playerScore>& leaderBoard);

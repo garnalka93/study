@@ -1,6 +1,4 @@
 #include "Support.h"
-#include <SFML/Audio.hpp>
-#include "SFML/Graphics.hpp"
 
 float getRandomNumber(float min, float max) {
 	static std::mt19937 gen(std::random_device{}());
@@ -57,8 +55,7 @@ void drawGame(GameState& gameData, sf::RenderWindow& window) {
 	window.draw(scoreText.text);
 	window.draw(controlInfoText.text);
 	window.draw(winInfoText.text);
-	window.draw(gameModesText.text);
-
+	drawLeaderBoardText(leaderBoard, gameData, window);
 	for (int i = 0; i < gameData.apples.size(); i++) {
 		window.draw(gameData.apples[i]);
 	}
@@ -71,7 +68,20 @@ void drawGame(GameState& gameData, sf::RenderWindow& window) {
 
 void configureGame(GameState& gameData) {
 	loadAllSounds(gameData);
-	setPlayer(playerStartPosition,gameData);
+	setPlayer(playerStartPosition, gameData);
 	setStones(gameData.stoneShape, STONES_AMOUNT, gameData.stoneTexture);
 	setApples(gameData);
+}
+
+void choseGameModeMenu(GameState& gameData, sf::RenderWindow& window) {
+	manualExitCondition(window);
+	if (!gameData.gameModeSelected) {
+		setText(gameData, gameModesHeaderText);
+		setText(gameData, gameModesInfoText);
+		changeGameMode(gameData);
+		window.draw(gameModesHeaderText.text);
+		window.draw(gameModesInfoText.text);
+		window.display();
+		gameData.timer.restart();
+	}
 }

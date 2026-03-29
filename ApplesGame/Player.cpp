@@ -1,18 +1,15 @@
 #include "Player.h"
-#include "Sounds.h"
-#include "Texts.h"
-#include "Conditions.h"
 
 int setPlayer(worldPosition2d playerStartPosition, GameState& gameData) {
 	playerInitSpeed = 100.f;
 	playerDirection = right;
-		
+
 	if (!gameData.playerTexture.loadFromFile("Resources\\Player.png")) {
 		OutputDebugStringA("WARNING: Issues with player texture!\n");
 		return -1;
 	};
 	gameData.playerSprite.setTexture(gameData.playerTexture);
-	gameData.playerSprite.scale(0.05,0.05);
+	gameData.playerSprite.scale(0.05, 0.05);
 	gameData.playerSprite.setOrigin(gameData.playerSprite.getLocalBounds().width / 2, gameData.playerSprite.getLocalBounds().height / 2);
 	gameData.playerSprite.setPosition(playerStartPosition.x, playerStartPosition.y);
 };
@@ -36,4 +33,11 @@ void checkCollistions(GameState& gameData, sf::RenderWindow& window) {
 	checkhWallCollision(gameData, playerPosition, window);
 	checkStoneCollision(gameData, window);
 	checkAppleCollision(gameData);
+}
+
+
+void setPlayerScore(int applesConsumed, std::string playerName, std::vector<playerScore>& leaderBoard) {
+	//leaderBoard.resize(leaderBoard.size()+1, {"user",0});
+	leaderBoard.at(leaderBoard.size() - 1) = { playerName, applesConsumed }; // how to fix rewriting?
+	//leaderBoard.insert(leaderBoard.end(), { playerName, applesConsumed});
 }

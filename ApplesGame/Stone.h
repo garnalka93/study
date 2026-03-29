@@ -4,8 +4,8 @@
 #include "gameConstants.h"
 #include "Support.h"
 #include "Sounds.h"
-
-using namespace GameConstants;
+#include "Texts.h"
+#include "Conditions.h"
 
 int setStones(sf::Sprite* stoneSprite, int STONES_AMOUNT, sf::Texture& stoneTexture);
 

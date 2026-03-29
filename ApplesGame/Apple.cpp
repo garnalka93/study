@@ -1,7 +1,4 @@
 #include "Apple.h"
-#include "Sounds.h"
-
-using namespace GameConstants;
 
 int setApples(GameState& gameData) {
 	gameData.apples.resize(gameData.APPLES_AMOUNT);
@@ -14,7 +11,7 @@ int setApples(GameState& gameData) {
 		gameData.apples[i].setTexture(gameData.appleTexture);
 		gameData.apples[i].setOrigin(APPLE_SIZE / 2.f, APPLE_SIZE / 2.f);
 		gameData.apples[i].setPosition(getRandomNumber(0, SCREEN_WIDTH), getRandomNumber(0, SCREEN_HEIGHT));
-		gameData.apples[i].setScale(0.05,0.05);
+		gameData.apples[i].setScale(0.05, 0.05);
 
 		for (int c = 0; c < i; c++) {
 			if (gameData.apples[i].getPosition() == gameData.apples[c].getPosition()) {
@@ -34,10 +31,12 @@ void checkAppleCollision(GameState& gameData) {
 			if (gameData.endlessApples) {
 				gameData.apples[i].setPosition(getRandomNumber(0, SCREEN_WIDTH), getRandomNumber(0, SCREEN_HEIGHT));
 				i--;
-			} else {
+			}
+			else {
 				gameData.apples.erase(gameData.apples.begin() + i);
-			}			
+			}
 			applesConsumed += 1;
+			setPlayerScore(applesConsumed, "ItsMe", leaderBoard);
 			playAppleEatSound(gameData);
 		}
 	}

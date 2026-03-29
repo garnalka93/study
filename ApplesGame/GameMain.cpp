@@ -11,8 +11,6 @@
 #include "Texts.h"
 #include "Conditions.h"
 
-using namespace GameConstants;
-
 int main()
 {
 	while (playAgain) {
@@ -29,24 +27,22 @@ int main()
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
-
-			changeGameMode(gameData);
-
-			playerMovement(gameData);
-
-			checkCollistions(gameData, window);
-
-			winCondition(gameData, window);
+			choseGameModeMenu(gameData, window);
 
 			manualExitCondition(window);
+			manualLeaderBoardOpen(gameData, window);
+			playAgainCondition(gameData, window);
 
-			setText(gameData, infoText);
-			setText(gameData, scoreText);
-			setText(gameData, controlInfoText);
-			setText(gameData, winInfoText);
-			setText(gameData, gameModesText);
+			if (gameData.gameModeSelected && !gameData.leaderBoardOpen) {
+				playerMovement(gameData);
 
-			drawGame(gameData, window);
+				checkCollistions(gameData, window);
+				winCondition(gameData, window);
+
+				setAllTexts(gameData);
+
+				drawGame(gameData, window);
+			}
 		}
 	}
 

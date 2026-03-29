@@ -1,5 +1,7 @@
 # temporary directories
 .vs
+.git
 x64
 x86
 *.user
+SFMLTemplate

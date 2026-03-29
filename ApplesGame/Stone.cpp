@@ -1,8 +1,4 @@
 #include "Stone.h"
-#include "Texts.h"
-#include "Conditions.h"
-
-using namespace GameConstants; 
 
 int setStones(sf::Sprite* stoneSprite, int STONES_AMOUNT, sf::Texture& stoneTexture) {
 	if (!stoneTexture.loadFromFile("Resources\\Rock.png")) {

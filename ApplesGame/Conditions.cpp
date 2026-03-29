@@ -1,5 +1,4 @@
 #include "Conditions.h"
-#include "Support.h"
 
 void manualExitCondition(sf::RenderWindow& window) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -10,42 +9,39 @@ void manualExitCondition(sf::RenderWindow& window) {
 
 void winCondition(GameState& gameData, sf::RenderWindow& window) {
 	if (applesConsumed == APPLES_TO_WIN) {
-		playAgain = false;
 		setText(gameData, victoryText);
-		window.draw(victoryText.text);
-		window.display();
-		Sleep(5000);
-		window.close();
+		gameData.leaderBoardOpen = true;
+		drawLeaderBoardText(leaderBoard, gameData, window);
 	}
 }
 
 void loseCondition(GameState& gameData, sf::RenderWindow& window) {
 	setText(gameData, gameOverText);
-	window.draw(gameOverText.text);
 	playDeathSound(gameData);
-	window.display();
-	Sleep(5000);
-	window.close();
-	playAgain = false;
+	gameData.leaderBoardOpen = true;
+	drawLeaderBoardText(leaderBoard, gameData, window);
+
 }
 
 
 void changeGameMode(GameState& gameData) {
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 		gameData.gameMode = easyMode;
 		setParameters(gameData);
 		configureGame(gameData);
+		gameData.gameModeSelected = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
 		gameData.gameMode = normalMode;
 		setParameters(gameData);
 		configureGame(gameData);
+		gameData.gameModeSelected = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
 		gameData.gameMode = hardMode;
 		setParameters(gameData);
 		configureGame(gameData);
+		gameData.gameModeSelected = true;
 	}
 
 }
@@ -66,3 +62,25 @@ void setParameters(GameState& gameData) {
 		acceleration = 3.f;
 	}
 }
+
+void manualLeaderBoardOpen(GameState& gameData, sf::RenderWindow& window) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+		gameData.leaderBoardOpen = true;
+		drawLeaderBoardText(leaderBoard, gameData, window);
+	}
+}
+
+void playAgainCondition(GameState& gameData, sf::RenderWindow& window) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {
+		playAgain = true;
+		gameData.leaderBoardOpen = false;
+		gameData.gameModeSelected = false;
+		window.clear();
+		configureGame(gameData);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {
+		window.close();
+		playAgain = false;
+	}
+}
+
